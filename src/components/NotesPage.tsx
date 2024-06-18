@@ -7,7 +7,6 @@ interface Props {
   notesList: Note[];
   setNotesList: React.Dispatch<React.SetStateAction<Note[]>>;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   handlePageNavigation: (newPage: number) => void;
 }
 
@@ -15,7 +14,6 @@ const NotePage = ({
   notesList,
   setNotesList,
   currentPage,
-  setCurrentPage,
   handlePageNavigation,
 }: Props) => {
 
@@ -45,6 +43,7 @@ const NotePage = ({
       <NotesList
         currentNotesList={currentNotesList}
         setNotesList={setNotesList}
+        handlePageNavigation={handlePageNavigation}
       />
       <div className="flex justify-between items-center mx-5">
         <button

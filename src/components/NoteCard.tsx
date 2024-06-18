@@ -20,9 +20,14 @@ import pinSound from "../audio/pin.wav";
 interface Props {
   note: Note;
   setNotesList: React.Dispatch<React.SetStateAction<Note[]>>;
+  handleNoteDeleteNavigation: () => void;
 }
 
-const NoteCard = ({ note, setNotesList }: Props) => {
+const NoteCard = ({
+  note,
+  setNotesList,
+  handleNoteDeleteNavigation,
+}: Props) => {
   const [isUpdateNoteModalOpen, setIsUpdateNoteModalOpen] =
     useState<boolean>(false);
   const [noteTitle, setNoteTitle] = useState<string>(note.title);
@@ -71,6 +76,7 @@ const NoteCard = ({ note, setNotesList }: Props) => {
 
   async function handleDeleteNote() {
     await deleteNote(note.id);
+    handleNoteDeleteNavigation();
     new Audio(deleteSound).play();
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);

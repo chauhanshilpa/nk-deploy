@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NotesPage from "./components/NotesPage";
 import { Note } from "./utils/classModels";
 import AddNoteCard from "./components/AddNoteCard";
 import { getNotesList } from "./utils/api";
 import Navbar from "./components/Navbar";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 
 function App() {
@@ -14,7 +14,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const navigate = useNavigate();
-  let previousNotesListLength = useRef(notesList.length);
 
   useEffect(() => {
     (async function () {
@@ -23,16 +22,12 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    if (previousNotesListLength.current < notesList.length) {
-      const page = Math.floor(notesList.length / 6);
-      if (page !== currentPage && notesList.length % 6 !== 0) {
-        handlePageNavigation(page);
-      }
+  function handleAddNoteClick() {
+    const page = Math.floor(notesList.length / 6);
+    if (page > currentPage) {
+      handlePageNavigation(page);
     }
-    previousNotesListLength.current = notesList.length;
-    // eslint-disable-next-line
-  }, [notesList.length]);
+  }
 
   function handlePageNavigation(newPage: number) {
     setCurrentPage(newPage);
@@ -69,6 +64,7 @@ function App() {
         <AddNoteCard
           setIsAddNoteClicked={setIsAddNoteClicked}
           setNotesList={setNotesList}
+          handleAddNoteClick={handleAddNoteClick}
         />
       )}
       <Routes>
@@ -79,7 +75,6 @@ function App() {
               notesList={notesList}
               setNotesList={setNotesList}
               currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
               handlePageNavigation={handlePageNavigation}
             />
           }
@@ -91,7 +86,6 @@ function App() {
               notesList={notesList}
               setNotesList={setNotesList}
               currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
               handlePageNavigation={handlePageNavigation}
             />
           }
