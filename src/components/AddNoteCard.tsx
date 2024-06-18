@@ -8,10 +8,14 @@ import bgApplySound from "../audio/bg-apply.mp3";
 interface Props {
   setIsAddNoteClicked: React.Dispatch<React.SetStateAction<boolean>>;
   setNotesList: React.Dispatch<React.SetStateAction<Note[]>>;
-  handleAddNoteClick: ()=>void;
+  handleAddNoteClick: () => void;
 }
 
-const AddNoteCard = ({ setIsAddNoteClicked, setNotesList, handleAddNoteClick }: Props) => {
+const AddNoteCard = ({
+  setIsAddNoteClicked,
+  setNotesList,
+  handleAddNoteClick,
+}: Props) => {
   const [inputNoteTitle, setInputNoteTitle] = useState<string>("");
   const [inputNoteTagline, setInputNoteTagline] = useState<string>("");
   const [inputNoteBody, setInputNoteBody] = useState<string>("");
@@ -21,11 +25,11 @@ const AddNoteCard = ({ setIsAddNoteClicked, setNotesList, handleAddNoteClick }: 
   ) {
     event.preventDefault();
     handleAddNoteClick();
-    new Audio(bgApplySound).play();
     await createNote(inputNoteTitle, inputNoteTagline, inputNoteBody);
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);
     setIsAddNoteClicked(false);
+    new Audio(bgApplySound).play();
   }
 
   return (
