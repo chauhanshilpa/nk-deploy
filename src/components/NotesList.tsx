@@ -24,7 +24,10 @@ const NotesList = ({
   function handleNoteDeleteNavigation() {
     const urlEndpoint = pathname.split("/");
     const currentPage = Number(urlEndpoint[urlEndpoint.length - 1]);
-    if (currentNotesList.length <= 1) {
+    if (
+      currentNotesList.length <= 1 &&
+      (currentPage !== 0 || pathname !== "/")
+    ) {
       handlePageNavigation(currentPage - 1);
     }
   }
@@ -32,7 +35,7 @@ const NotesList = ({
   return (
     <div className="w-[80%] m-auto mt-24">
       {pinnedNotesList.length > 0 && (
-        <div className="w-[60%] sm:w-[100%] columns-1 sm:columns-2 md:columns-3 m-auto mb-10">
+        <div className="w-[80%] columns-1 sm:columns-2 md:columns-3 m-auto mb-10">
           {pinnedNotesList.map((note) => (
             <NoteCard
               key={note.id}

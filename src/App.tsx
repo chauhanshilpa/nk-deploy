@@ -37,29 +37,18 @@ function App() {
   return (
     <>
       <Navbar setCurrentPage={setCurrentPage} />
-      {notesList.length > 0 ? (
-        <div className="fixed right-0 p-2">
-          <img
-            src="https://note-keeper.s3.eu-north-1.amazonaws.com/note-keeper-icons/add-a-note.png"
-            alt="add-note"
-            className="h-10 w-10 mr-5 bg-[#8cc055] cursor-pointer mt-5 border rounded-lg shadow-lg hover:bg-[#7CB342] ml-2"
-            onClick={() => setIsAddNoteClicked(true)}
-            data-tooltip-id="add-new-note"
-            data-tooltip-content="Add note"
-          />
-        </div>
-      ) : (
+      <div className={`${notesList.length > 0 ? "fixed right-0 p-2" : ""}`}>
         <img
-          src="https://note-keeper.s3.eu-north-1.amazonaws.com/note-keeper-icons/addNote.png"
+          src="https://note-keeper.s3.eu-north-1.amazonaws.com/note-keeper-icons/add-a-note.png"
           alt="add-note"
-          className={`h-80 m-auto mt-20 cursor-pointer ${
-            isAddNoteClicked && "hidden"
+          className={`bg-[#8cc055] cursor-pointer mt-5 border rounded-lg shadow-lg hover:bg-[#7CB342] ${
+            notesList.length > 0 ? "mr-5 h-10 w-10 ml-2" : "h-60 m-auto mt-10"
           }`}
           onClick={() => setIsAddNoteClicked(true)}
           data-tooltip-id="add-new-note"
           data-tooltip-content="Add note"
         />
-      )}
+      </div>
       {isAddNoteClicked && (
         <AddNoteCard
           setIsAddNoteClicked={setIsAddNoteClicked}
