@@ -41,3 +41,29 @@ export const NOTE_BACKGROUND_IMAGES_LIST = [
     src: "https://note-keeper.s3.eu-north-1.amazonaws.com/note-keeper-icons/background-16.jpg",
   },
 ];
+
+interface Backgrounds {
+  [key: number]: string;
+}
+
+export let CACHED_NOTE_BACKGROUND_IMAGES_LIST: { src: string }[] = [];
+
+let backgrounds: Backgrounds = {};
+if (typeof window !== "undefined") {
+  const storedBackgrounds = localStorage.getItem("backgrounds");
+  if (storedBackgrounds) {
+    const parsedBackgrounds: { [key: string]: string } =
+      JSON.parse(storedBackgrounds);
+    const list: { src: string }[] = Object.values(parsedBackgrounds).map(
+      (value) => ({
+        src: value,
+      })
+    );
+    CACHED_NOTE_BACKGROUND_IMAGES_LIST = list;
+  } else {
+    NOTE_BACKGROUND_IMAGES_LIST.forEach((item, index) => {
+      backgrounds[index] = item.src;
+    });
+    localStorage.setItem("backgrounds", JSON.stringify(backgrounds));
+  }
+}

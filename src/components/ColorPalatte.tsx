@@ -1,5 +1,8 @@
-import { RefObject } from "react";
-import { COLORS_LIST, NOTE_BACKGROUND_IMAGES_LIST } from "../utils/constants";
+import { RefObject} from "react";
+import {
+  COLORS_LIST,
+  CACHED_NOTE_BACKGROUND_IMAGES_LIST,
+} from "../utils/constants";
 import { v4 as uuidv4 } from "uuid";
 
 interface Props {
@@ -30,7 +33,7 @@ const ColorPalatte = ({
         ))}
       </div>
       <div className="flex justify-center gap-1 flex-wrap p-2">
-        {NOTE_BACKGROUND_IMAGES_LIST.map((item) => (
+        {CACHED_NOTE_BACKGROUND_IMAGES_LIST.map((item) => (
           <img
             key={uuidv4()}
             src={item.src}
