@@ -6,6 +6,7 @@
   .tooltip {
     border-radius: 10px !important;
     background-color: #575c6e !important;
+    z-index: 99;
   }
 
   /* width */

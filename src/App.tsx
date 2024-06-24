@@ -12,10 +12,16 @@ function App() {
   const [notesList, setNotesList] = useState<Note[]>([]);
   const [isAddNoteClicked, setIsAddNoteClicked] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
-
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const page = localStorage.getItem("page");
+      if (page !== null) {
+        setCurrentPage(Number(page));
+      }
+    }
     (async function () {
       const response = await getNotesList();
       setNotesList(response.data.newNotesList);
@@ -32,6 +38,10 @@ function App() {
   function handlePageNavigation(newPage: number) {
     setCurrentPage(newPage);
     navigate(`/page/${newPage}`);
+    if (typeof window !== "undefined") {
+      const page = newPage.toString();
+      localStorage.setItem("page", page);
+    }
   }
 
   return (

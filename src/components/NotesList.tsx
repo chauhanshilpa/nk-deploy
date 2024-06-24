@@ -1,7 +1,6 @@
 import { Note } from "../utils/classModels";
 import NoteCard from "./NoteCard";
 import { useLocation } from "react-router-dom";
-
 interface Props {
   currentNotesList: Note[];
   setNotesList: React.Dispatch<React.SetStateAction<Note[]>>;
@@ -14,6 +13,7 @@ const NotesList = ({
   handlePageNavigation,
 }: Props) => {
   const { pathname } = useLocation();
+
   const pinnedNotesList = currentNotesList.filter(
     (note) => note.isPinned === true
   );
@@ -26,7 +26,8 @@ const NotesList = ({
     const currentPage = Number(urlEndpoint[urlEndpoint.length - 1]);
     if (
       currentNotesList.length <= 1 &&
-      (currentPage !== 0 || pathname !== "/")
+      currentPage !== 0 &&
+      !isNaN(currentPage)
     ) {
       handlePageNavigation(currentPage - 1);
     }
