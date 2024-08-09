@@ -58,10 +58,10 @@ const NoteCard = ({
 
   async function handleUpdateNoteCard() {
     await updateNote(note.id, noteTitle, noteTagline, noteBody);
-    new Audio(bgApplySound).play();
     setIsUpdateNoteModalOpen(false);
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);
+    new Audio(bgApplySound).play();
   }
 
   async function handlePinNote() {
@@ -77,23 +77,23 @@ const NoteCard = ({
   async function handleDeleteNote() {
     await deleteNote(note.id);
     handleNoteDeleteNavigation();
-    new Audio(deleteSound).play();
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);
+    new Audio(deleteSound).play();
   }
 
   async function handleNoteBackgroundColor(color: string) {
-    new Audio(bgApplySound).play();
     await changeBackground(note.id, color, "");
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);
+    new Audio(bgApplySound).play();
   }
 
   async function handleNoteBackgroundImage(src: string) {
-    new Audio(bgApplySound).play();
     await changeBackground(note.id, "", src);
     const response = await getNotesList();
     setNotesList(response.data.newNotesList);
+    new Audio(bgApplySound).play();
   }
 
   return (
